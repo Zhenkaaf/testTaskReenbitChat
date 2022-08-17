@@ -1,8 +1,9 @@
 import { cloneDeep } from 'lodash';
+import axios from 'axios';
 
-const NEW_MESSAGE = 'NEW_MESSAGE';
 const SET_ID = 'SET_ID';
 const ADD_MESSAGE = 'ADD_MESSAGE';
+const ADD_MESSAGE_FROM_SERVER = 'ADD_MESSAGE_FROM_SERVER';
 
 const initialState = {
     contactsData: [
@@ -11,17 +12,12 @@ const initialState = {
         { id: 3, name: 'Velazquez', photoURL: '', messages: [{ type: 'answer', text: "Quickly come to the meeting room 1B, we have a big server issue Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum", time: '4:00 AM', date: '3/18/17' }] },
         { id: 4, name: 'Barrera', photoURL: '', messages: [{ type: 'answer', text: "Quickly come to the meeting room 1B, we have a big server issue", time: '4:00 AM', date: '3/18/17' }] }
     ],
-    activeContactId: '2'
+    activeContactId: '2',
+    notification: null
 }
 
 const contactsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case NEW_MESSAGE: {
-            let stateCopy = cloneDeep(state);
-            alert('reducerWORK');
-            console.log(stateCopy);
-            console.log(stateCopy == state);
-        }
         case SET_ID: {
             let stateCopy = cloneDeep(state);
             stateCopy.activeContactId = action.id;
@@ -37,11 +33,70 @@ const contactsReducer = (state = initialState, action) => {
                         time: '4:05 AM',
                         date: '4/22/17'
                     }
-                    item.messages.push(messageObj);
+
+                    if (localStorage.getItem(action.contactId) == null) {
+                        let localStorageArr = [];
+                        localStorageArr = localStorageArr.concat(item.messages);
+                        localStorageArr.push(messageObj);
+                        let convertedToJson = JSON.stringify(localStorageArr);
+                        localStorage.setItem(action.contactId, convertedToJson);
+                    }
+                    else {
+                        let returnedObj = localStorage.getItem(action.contactId);
+                        let localStorageArr = JSON.parse(returnedObj);
+                        localStorageArr.push(messageObj);
+                        let convertedToJson = JSON.stringify(localStorageArr);
+                        localStorage.setItem(action.contactId, convertedToJson);
+                    }
+                   /*  let returnedObj = localStorage.getItem(action.contactId);
+                        let localStorageArr = JSON.parse(returnedObj); */
+                       
+                    /* for (let i = 0; i < localStorageArr.length; i++) {
+                        item.messages.push(localStorageArr[i]);
+                    } */
+                    /* item.messages.push(localStorageArr[localStorageArr.length - 1]); */
+                   
                     stateCopy.contactsData.splice(0, 0, stateCopy.contactsData.splice(index, 1)[0]);
                 }
             })
+            return stateCopy;
+        }
+        case ADD_MESSAGE_FROM_SERVER: {
+            let stateCopy = cloneDeep(state);
+            stateCopy.contactsData.map((item, index) => {
+                if (item.id == action.contactId) {
+                    let messageObj = {
+                        type: 'answer',
+                        text: action.messageText,
+                        time: '4:05 AM',
+                        date: '4/22/17'
+                    }
+                    if (localStorage.getItem(action.contactId) == null) {
+                        let localStorageArr = [];
+                        localStorageArr = localStorageArr.concat(item.messages);
+                        localStorageArr.push(messageObj);
+                        let convertedToJson = JSON.stringify(localStorageArr);
+                        localStorage.setItem(action.contactId, convertedToJson);
+                    }
+                    else {
+                        let returnedObj = localStorage.getItem(action.contactId);
+                        let localStorageArr = JSON.parse(returnedObj);
+                        localStorageArr.push(messageObj);
+                        let convertedToJson = JSON.stringify(localStorageArr);
+                        localStorage.setItem(action.contactId, convertedToJson);
+                    }
+                   /*  let returnedObj = localStorage.getItem(action.contactId);
+                        let localStorageArr = JSON.parse(returnedObj); */
+                    /* for (let i = 0; i < localStorageArr.length; i++) {
+                        item.messages.push(localStorageArr[i]);
+                    } */
+                 /*    item.messages.push(localStorageArr[localStorageArr.length - 1]); */
 
+                    /* item.messages.push(messageObj); */
+                    stateCopy.contactsData.splice(0, 0, stateCopy.contactsData.splice(index, 1)[0]);
+                    stateCopy.notification = 'You have new message from ' + item.name;
+                }
+            })
             return stateCopy;
         }
         default:
@@ -51,18 +106,34 @@ const contactsReducer = (state = initialState, action) => {
 
 export const setIdActionCreator = (val) => {
     return {
-      type: 'SET_ID',
-      id: val
+        type: 'SET_ID',
+        id: val
     };
-  }
-  export const addNewMessageActionCreator = (messageText, contactId) => {
+}
+export const addNewMessageActionCreator = (messageText, contactId) => {
     return {
-      type: 'ADD_MESSAGE',
-      messageText: messageText,
-      contactId: contactId
+        type: 'ADD_MESSAGE',
+        messageText: messageText,
+        contactId: contactId
     };
-  }
+}
+export const addNewMessageFromServerActionCreator = (messageText, contactId) => {
+    return {
+        type: 'ADD_MESSAGE_FROM_SERVER',
+        messageText: messageText,
+        contactId: contactId
+    };
+}
+export const getAnswerThunkCreator = (contactId) => {
+    return (dispatch) => {
+        axios.get('https://api.chucknorris.io/jokes/random')
+            .then(response => {
+                setTimeout(() => {
+                    dispatch(addNewMessageFromServerActionCreator(response.data.value, contactId));
+                }, 10000);
+            })
+    }
+}
 
-  
 
 export default contactsReducer;

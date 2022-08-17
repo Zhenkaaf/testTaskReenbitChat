@@ -5,7 +5,8 @@ import Contacts from "./Contacts";
 
 const mapStateToProps = (state) => {
   return {
-    contactsData: state.contacts.contactsData
+    contactsData: state.contacts.contactsData,
+    notification: state.contacts.notification
   }
 }
 const mapDispatchToProps = (dispatch) => {

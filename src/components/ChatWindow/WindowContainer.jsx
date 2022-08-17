@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { addNewMessageActionCreator } from "../../redux/ContactsReducer";
+import { addNewMessageActionCreator, getAnswerThunkCreator } from "../../redux/ContactsReducer";
 import Window from "./Window";
 
 
@@ -13,7 +13,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         addNewMessage: (messageText, contactId) => {
             dispatch(addNewMessageActionCreator(messageText, contactId))
+          },
+          fn: (contactId) => {
+            dispatch(getAnswerThunkCreator(contactId))
           }
+
     }
 }
 
