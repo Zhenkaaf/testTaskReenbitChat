@@ -1,0 +1,10 @@
+h1 {
+    text-align: left;
+    color: blue;
+    margin: 20px 0px 30px 15px;
+    font-weight: 500;
+}
+.contactsBody {
+    background-color: burlywood;
+    border: 1px solid grey;
+}

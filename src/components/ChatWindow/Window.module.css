@@ -1,0 +1,49 @@
+.windowBody {
+  height: 600px;
+   overflow-y: scroll;
+    background-color: cadetblue;
+}
+.messagesBody {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*-------------------------------------------*/
+.messageBody {
+    align-self: flex-end;
+}
+.messageTextAnswer {
+    background-color: aqua;
+    display: inline-block;
+    border-radius: 18px;
+    padding: 10px;
+    margin: 20px;
+}
+.messageTextQuestion {
+    background-color: gray;
+    display: inline-block;
+    border-radius: 18px;
+    padding: 10px;
+    margin: 20px;
+}
+/*-------------------------------------------*/
+.sendArrow {
+   border: 2px solid black;
+   padding: 5px;
+   cursor: pointer;
+   
+}

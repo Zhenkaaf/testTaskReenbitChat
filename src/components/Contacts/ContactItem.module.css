@@ -1,0 +1,32 @@
+.itemBody {
+    border-bottom: 1px solid gray;
+    display: flex;
+    height: 80px;
+    box-sizing: border-box;
+    padding: 15px;
+    cursor: pointer;
+}
+.itemBody:hover {
+    background-color: chartreuse;
+}
+.itemAva {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; 
+}
+.itemNameText {
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-align: left;
+    padding: 0px 15px;
+}
+.itemName {
+    font-weight: 600;
+}
+.itemText {
+    font-size: 10px;
+    overflow: hidden;  
+}
+.itemDate {
+   
+}
