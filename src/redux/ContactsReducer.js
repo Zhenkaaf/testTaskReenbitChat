@@ -4,6 +4,7 @@ import axios from 'axios';
 const SET_ID = 'SET_ID';
 const ADD_MESSAGE = 'ADD_MESSAGE';
 const ADD_MESSAGE_FROM_SERVER = 'ADD_MESSAGE_FROM_SERVER';
+const TEST ='TEST';
 
 const initialState = {
     contactsData: [
@@ -13,7 +14,7 @@ const initialState = {
         { id: 4, name: 'Barrera', photoURL: '', messages: [{ type: 'answer', text: "Quickly come to the meeting room 1B, we have a big server issue", time: '4:00 AM', date: '3/18/17' }] }
     ],
     activeContactId: '2',
-    notification: null
+    notification: null,
 }
 
 const contactsReducer = (state = initialState, action) => {
@@ -38,6 +39,7 @@ const contactsReducer = (state = initialState, action) => {
                         let localStorageArr = [];
                         localStorageArr = localStorageArr.concat(item.messages);
                         localStorageArr.push(messageObj);
+                       /*  item.messages.push(messageObj); */
                         let convertedToJson = JSON.stringify(localStorageArr);
                         localStorage.setItem(action.contactId, convertedToJson);
                     }
@@ -45,17 +47,18 @@ const contactsReducer = (state = initialState, action) => {
                         let returnedObj = localStorage.getItem(action.contactId);
                         let localStorageArr = JSON.parse(returnedObj);
                         localStorageArr.push(messageObj);
+                       /*  item.messages.push(messageObj); */
                         let convertedToJson = JSON.stringify(localStorageArr);
                         localStorage.setItem(action.contactId, convertedToJson);
                     }
-                   /*  let returnedObj = localStorage.getItem(action.contactId);
-                        let localStorageArr = JSON.parse(returnedObj); */
-                       
+                    /*  let returnedObj = localStorage.getItem(action.contactId);
+                         let localStorageArr = JSON.parse(returnedObj); */
+
                     /* for (let i = 0; i < localStorageArr.length; i++) {
                         item.messages.push(localStorageArr[i]);
                     } */
                     /* item.messages.push(localStorageArr[localStorageArr.length - 1]); */
-                   
+
                     stateCopy.contactsData.splice(0, 0, stateCopy.contactsData.splice(index, 1)[0]);
                 }
             })
@@ -75,6 +78,7 @@ const contactsReducer = (state = initialState, action) => {
                         let localStorageArr = [];
                         localStorageArr = localStorageArr.concat(item.messages);
                         localStorageArr.push(messageObj);
+                       /*  item.messages.push(messageObj); */
                         let convertedToJson = JSON.stringify(localStorageArr);
                         localStorage.setItem(action.contactId, convertedToJson);
                     }
@@ -82,21 +86,33 @@ const contactsReducer = (state = initialState, action) => {
                         let returnedObj = localStorage.getItem(action.contactId);
                         let localStorageArr = JSON.parse(returnedObj);
                         localStorageArr.push(messageObj);
+                       /*  item.messages.push(messageObj); */
                         let convertedToJson = JSON.stringify(localStorageArr);
                         localStorage.setItem(action.contactId, convertedToJson);
                     }
-                   /*  let returnedObj = localStorage.getItem(action.contactId);
-                        let localStorageArr = JSON.parse(returnedObj); */
+                    /*  let returnedObj = localStorage.getItem(action.contactId);
+                         let localStorageArr = JSON.parse(returnedObj); */
                     /* for (let i = 0; i < localStorageArr.length; i++) {
                         item.messages.push(localStorageArr[i]);
                     } */
-                 /*    item.messages.push(localStorageArr[localStorageArr.length - 1]); */
+                    /*    item.messages.push(localStorageArr[localStorageArr.length - 1]); */
 
                     /* item.messages.push(messageObj); */
                     stateCopy.contactsData.splice(0, 0, stateCopy.contactsData.splice(index, 1)[0]);
-                    stateCopy.notification = 'You have new message from ' + item.name;
+                    /* stateCopy.notification = item.name; */
+                  /*   stateCopy.notification.text = 'You have new message from '; */
                 }
             })
+            return stateCopy;
+        }
+        case TEST: {
+            let stateCopy = cloneDeep(state);
+            if (stateCopy.notification == false) {
+                stateCopy.notification = true;
+            }
+            else {
+                stateCopy.notification = false;
+            }
             return stateCopy;
         }
         default:
@@ -124,12 +140,19 @@ export const addNewMessageFromServerActionCreator = (messageText, contactId) => 
         contactId: contactId
     };
 }
+const test = (contactId) => {
+    return {
+        type: 'TEST',
+        contactId: contactId
+    }
+}
 export const getAnswerThunkCreator = (contactId) => {
     return (dispatch) => {
         axios.get('https://api.chucknorris.io/jokes/random')
             .then(response => {
                 setTimeout(() => {
                     dispatch(addNewMessageFromServerActionCreator(response.data.value, contactId));
+                    dispatch(test(contactId));
                 }, 10000);
             })
     }

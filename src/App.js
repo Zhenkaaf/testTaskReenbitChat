@@ -7,22 +7,25 @@ import ContactsContainer from './components/Contacts/ContactsContainer';
 import WindowContainer from './components/ChatWindow/WindowContainer';
 
 
+
 function App() {
   return (
-   
-      <Provider store={store}>
-        <div className='App'>
-          <div className='container'>
-            <div className='chatBody'>
 
-              <div className='contactsContainer'><ContactsContainer /></div>
-              <div className='windowContainer'><WindowContainer /></div>
-              
-            </div>
+    <Provider store={store}>
+      <div className='App'>
+        <div className='container'>
+          <div className='chatBody'>
+          
+            
+
+            <div className='contactsContainer'><ContactsContainer /></div>
+            <div className='windowContainer'><WindowContainer /></div>
+
           </div>
         </div>
-      </Provider>
-   
+      </div>
+    </Provider>
+
   );
 }
 

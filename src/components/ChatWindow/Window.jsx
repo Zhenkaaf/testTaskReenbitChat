@@ -14,14 +14,11 @@ const Window = (props) => {
         }
     })
     let dataForDisplay;
-    let messages;
     let activeItemId = activeItem[0].id;
     if (localStorage.getItem(activeItemId) == null) {
-        alert('from props');
         dataForDisplay = activeItem[0].messages;
     }
    else {
-    alert('from localStor');
         let returnedObj = localStorage.getItem(activeItemId);
         let localStorageArr = JSON.parse(returnedObj);
         dataForDisplay = localStorageArr;
@@ -46,12 +43,12 @@ const Window = (props) => {
             alert(localStorageArr[i]);
         }
     } */
-    console.log(activeItem[0].messages);
+  
 
 
 
 
-    messages = /* activeItem[0].messages */dataForDisplay.map((item, index) => {
+    let messages = /* activeItem[0].messages */dataForDisplay.map((item, index) => {
         return <ActiveItemMessages key={index} text={item.text} type={item.type} ></ActiveItemMessages>;
     })
 

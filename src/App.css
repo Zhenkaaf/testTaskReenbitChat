@@ -5,6 +5,9 @@
 .chatBody {
   display: flex;
 }
+.chats {
+ 
+}
 .contactsContainer {
   flex: 0 0 33.333%;
 }
