@@ -4,7 +4,7 @@ import axios from 'axios';
 const SET_ID = 'SET_ID';
 const ADD_MESSAGE = 'ADD_MESSAGE';
 const ADD_MESSAGE_FROM_SERVER = 'ADD_MESSAGE_FROM_SERVER';
-const TEST ='TEST';
+const NOTIFICATION = 'NOTIFICATION';
 
 const initialState = {
     contactsData: [
@@ -15,6 +15,7 @@ const initialState = {
     ],
     activeContactId: '2',
     notification: null,
+    notificationName: null
 }
 
 const contactsReducer = (state = initialState, action) => {
@@ -39,7 +40,6 @@ const contactsReducer = (state = initialState, action) => {
                         let localStorageArr = [];
                         localStorageArr = localStorageArr.concat(item.messages);
                         localStorageArr.push(messageObj);
-                       /*  item.messages.push(messageObj); */
                         let convertedToJson = JSON.stringify(localStorageArr);
                         localStorage.setItem(action.contactId, convertedToJson);
                     }
@@ -47,7 +47,6 @@ const contactsReducer = (state = initialState, action) => {
                         let returnedObj = localStorage.getItem(action.contactId);
                         let localStorageArr = JSON.parse(returnedObj);
                         localStorageArr.push(messageObj);
-                       /*  item.messages.push(messageObj); */
                         let convertedToJson = JSON.stringify(localStorageArr);
                         localStorage.setItem(action.contactId, convertedToJson);
                     }
@@ -78,7 +77,6 @@ const contactsReducer = (state = initialState, action) => {
                         let localStorageArr = [];
                         localStorageArr = localStorageArr.concat(item.messages);
                         localStorageArr.push(messageObj);
-                       /*  item.messages.push(messageObj); */
                         let convertedToJson = JSON.stringify(localStorageArr);
                         localStorage.setItem(action.contactId, convertedToJson);
                     }
@@ -86,7 +84,6 @@ const contactsReducer = (state = initialState, action) => {
                         let returnedObj = localStorage.getItem(action.contactId);
                         let localStorageArr = JSON.parse(returnedObj);
                         localStorageArr.push(messageObj);
-                       /*  item.messages.push(messageObj); */
                         let convertedToJson = JSON.stringify(localStorageArr);
                         localStorage.setItem(action.contactId, convertedToJson);
                     }
@@ -100,12 +97,12 @@ const contactsReducer = (state = initialState, action) => {
                     /* item.messages.push(messageObj); */
                     stateCopy.contactsData.splice(0, 0, stateCopy.contactsData.splice(index, 1)[0]);
                     /* stateCopy.notification = item.name; */
-                  /*   stateCopy.notification.text = 'You have new message from '; */
+                    /*   stateCopy.notification.text = 'You have new message from '; */
                 }
             })
             return stateCopy;
         }
-        case TEST: {
+        case NOTIFICATION: {
             let stateCopy = cloneDeep(state);
             if (stateCopy.notification == false) {
                 stateCopy.notification = true;
@@ -113,6 +110,11 @@ const contactsReducer = (state = initialState, action) => {
             else {
                 stateCopy.notification = false;
             }
+            stateCopy.contactsData.filter(item => {
+                if (item.id == action.contactId) {
+                    stateCopy.notificationName = item.name;
+                }
+            })
             return stateCopy;
         }
         default:
@@ -140,9 +142,9 @@ export const addNewMessageFromServerActionCreator = (messageText, contactId) => 
         contactId: contactId
     };
 }
-const test = (contactId) => {
+const notification = (contactId) => {
     return {
-        type: 'TEST',
+        type: 'NOTIFICATION',
         contactId: contactId
     }
 }
@@ -152,7 +154,7 @@ export const getAnswerThunkCreator = (contactId) => {
             .then(response => {
                 setTimeout(() => {
                     dispatch(addNewMessageFromServerActionCreator(response.data.value, contactId));
-                    dispatch(test(contactId));
+                    dispatch(notification(contactId));
                 }, 10000);
             })
     }

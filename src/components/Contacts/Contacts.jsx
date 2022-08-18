@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import ContactItem from "./ContactItem";
 import s from "./Contacts.module.css";
 import { useState } from 'react';
@@ -6,17 +6,20 @@ import { useState } from 'react';
 
 const Contacts = (props) => {
     console.log(props.notification);
-   
-     useEffect(() => {
+let notificationWondow = React.createRef();
+
+    useEffect(() => {
         if (props.notification != null) {
-            alert('new message');
+            let node = notificationWondow.current;
+            node.style.visibility = 'visible';
+            setTimeout(()=>{
+                node.style.visibility = 'hidden';
+            }, 3000);
         }
-             
-       
-             
-             /* alert(`${props.notification.text} ${props.notification.name}`); */
-         
-     }, [props.notification])
+
+        /* alert(`${props.notification.text} ${props.notification.name}`); */
+
+    }, [props.notification])
 
 
 
@@ -40,11 +43,14 @@ const Contacts = (props) => {
                     ava
                 </div>
                 <div className={s.searchBlock}>
-                    <input className={s.search} onChange={findContact} value={desiredContact} placeholder={'Search or start new chat'}></input>
+                    <input className={s.search} onChange={findContact} onBlur={()=>{setDesiredContact('')}} value={desiredContact} placeholder={'Search or start new chat'}></input>
                 </div>
             </div>
             <div className={s.contactsBody}>
-                <div><h1>Chats</h1><div>{props.notification}tttt</div></div>
+                <div>
+                    <h1>Chats</h1>
+                    <div className={s.okno} ref={notificationWondow}>{props.notificationName}</div>
+                </div>
                 <div>{contacts}</div>
             </div>
         </div>

@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './Window.module.css';
 
 
 const Window = (props) => {
     /* console.log(props.contactsData[0].messages); */
 
-    /*   useEffect(() => {
-  alert('useWork');
-      }, [props]) */
+    
     let activeItem = props.contactsData.filter(item => {
         if (props.activeContactId == item.id) {
             return item;
@@ -51,12 +49,23 @@ const Window = (props) => {
     let messages = /* activeItem[0].messages */dataForDisplay.map((item, index) => {
         return <ActiveItemMessages key={index} text={item.text} type={item.type} ></ActiveItemMessages>;
     })
+   
+    let myRef = React.createRef();
+    let scrollTo = () => {
+        myRef.current.scrollIntoView();
+    }
+      useEffect(() => {
+        scrollTo();
+      }, [messages])
+
+
 
     return (
         <div>
             <div className={s.windowBody}>
                 <div>{activeItem[0].name}</div>
                 <div className={s.messagesBody}>{messages}</div>
+                <div ref={myRef}></div>
             </div>
             <TypeMessage fn={props.fn} addNewMessage={props.addNewMessage} activeContactId={props.activeContactId}></TypeMessage>
         </div>
@@ -87,15 +96,7 @@ const TypeMessage = (props) => {
         setNewMessageText('');
     }
 
-    const fnAPI = () => {
-
-        /* setTimeout(() => { */
-
-
-
-        /*   }, 5000); */
-
-    }
+    
 
     return (
         <div>
