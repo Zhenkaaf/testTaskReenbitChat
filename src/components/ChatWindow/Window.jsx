@@ -3,9 +3,9 @@ import s from './Window.module.css';
 
 
 const Window = (props) => {
-    /* console.log(props.contactsData[0].messages); */
+    console.log(props);
 
-    
+
     let activeItem = props.contactsData.filter(item => {
         if (props.activeContactId == item.id) {
             return item;
@@ -16,11 +16,11 @@ const Window = (props) => {
     if (localStorage.getItem(activeItemId) == null) {
         dataForDisplay = activeItem[0].messages;
     }
-   else {
+    else {
         let returnedObj = localStorage.getItem(activeItemId);
         let localStorageArr = JSON.parse(returnedObj);
         dataForDisplay = localStorageArr;
-   }
+    }
 
     /* useEffect(() => {
     if (localStorage.getItem(activeItemId) != null) {
@@ -33,15 +33,15 @@ const Window = (props) => {
         }
     }
 }) */
-   /*  else {
-        let returnedObj = localStorage.getItem(activeItemId);
-        let localStorageArr = JSON.parse(returnedObj);
-        for (let i = 0; i < localStorageArr.length; i++) {
-            activeItem[0].messages.push(localStorageArr[i]);
-            alert(localStorageArr[i]);
-        }
-    } */
-  
+    /*  else {
+         let returnedObj = localStorage.getItem(activeItemId);
+         let localStorageArr = JSON.parse(returnedObj);
+         for (let i = 0; i < localStorageArr.length; i++) {
+             activeItem[0].messages.push(localStorageArr[i]);
+             alert(localStorageArr[i]);
+         }
+     } */
+
 
 
 
@@ -49,23 +49,28 @@ const Window = (props) => {
     let messages = /* activeItem[0].messages */dataForDisplay.map((item, index) => {
         return <ActiveItemMessages key={index} text={item.text} type={item.type} ></ActiveItemMessages>;
     })
-   
+
     let myRef = React.createRef();
     let scrollTo = () => {
         myRef.current.scrollIntoView();
     }
-      useEffect(() => {
+    useEffect(() => {
         scrollTo();
-      }, [messages])
+    }, [messages])
 
 
 
     return (
         <div>
             <div className={s.windowBody}>
-                <div>{activeItem[0].name}</div>
-                <div className={s.messagesBody}>{messages}</div>
-                <div ref={myRef}></div>
+                <div className={s.windowContactInfo}>
+                    <div><img className={s.itemAva} src={`${activeItem[0].photoURL ? activeItem[0].photoURL : 'https://secure.gravatar.com/avatar/177d59eb5e60f5183be02ab03a4911c7?s=250&d=mm&r=g'}`}></img></div>
+                    <div className={s.windowContactName}>{activeItem[0].name}</div>
+                </div>
+                <div className={s.messagesBody}>
+                    <div>{messages}<div ref={myRef}></div></div>
+                </div>
+
             </div>
             <TypeMessage fn={props.fn} addNewMessage={props.addNewMessage} activeContactId={props.activeContactId}></TypeMessage>
         </div>
@@ -96,7 +101,7 @@ const TypeMessage = (props) => {
         setNewMessageText('');
     }
 
-    
+
 
     return (
         <div>

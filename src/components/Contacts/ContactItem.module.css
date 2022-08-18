@@ -5,9 +5,10 @@
     box-sizing: border-box;
     padding: 15px;
     cursor: pointer;
+    color: #444;
 }
 .itemBody:hover {
-    background-color: chartreuse;
+    background-color: gainsboro;
 }
 .itemAva {
     width: 50px;
