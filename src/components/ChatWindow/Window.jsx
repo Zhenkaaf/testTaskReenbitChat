@@ -47,7 +47,7 @@ const Window = (props) => {
 
 
     let messages = /* activeItem[0].messages */dataForDisplay.map((item, index) => {
-        return <ActiveItemMessage key={index} text={item.text} type={item.type} ava={activeItem[0].photoURL} ></ActiveItemMessage>;
+        return <ActiveItemMessage key={index} text={item.text} type={item.type} ava={activeItem[0].photoURL} time={item.time} date={item.date}></ActiveItemMessage>;
     })
 
     let myRef = React.createRef();
@@ -88,9 +88,29 @@ const ActiveItemMessage = (props) => {
 
         <div className={s.activeItemMessageBody}>
             {props.type == 'question'
-                ? <div className={s.questionBody}><div className={s.messageTextQuestion}>{props.text}</div></div>
+                ? <div><div className={s.questionBody}>
+                    <div className={s.messageTextQuestion}>{props.text}</div>
+                </div>
+                    <div className={s.dateBlockQuestion}>
+                        <div className={s.dateBlockdate}>{props.date} ,</div>
+                        <div>{props.time}</div>
+                    </div>
+                </div>
 
-                : <div className={s.answerBody}><div><img className={s.itemAva} src={`${props.ava ? props.ava : 'https://secure.gravatar.com/avatar/177d59eb5e60f5183be02ab03a4911c7?s=250&d=mm&r=g'}`}></img></div><div className={s.messageTextAnswer}>{props.text}</div></div>}
+                : <div className={s.answerBody}>
+                    <div className={s.answerContainer}>
+                        <div>
+                            <img className={s.itemAva} src={`${props.ava ? props.ava : 'https://secure.gravatar.com/avatar/177d59eb5e60f5183be02ab03a4911c7?s=250&d=mm&r=g'}`}></img>
+                        </div>
+                        <div className={s.messageTextAnswer}>{props.text}</div>
+                    </div>
+                    <div className={s.dateBlockAnswer}>
+                        <div className={s.dateBlockdate}>{props.date} ,</div>
+                        <div>{props.time}</div>
+                    </div>
+
+                </div>}
+
         </div>
 
     )

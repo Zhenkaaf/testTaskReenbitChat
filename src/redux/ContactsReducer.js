@@ -1,5 +1,6 @@
 import { cloneDeep } from 'lodash';
 import axios from 'axios';
+import GetDate from '../components/Date/Date';
 
 const SET_ID = 'SET_ID';
 const ADD_MESSAGE = 'ADD_MESSAGE';
@@ -18,6 +19,10 @@ const initialState = {
     notificationName: null
 }
 
+/* console.log(GetDate.monthDayYearSlice());
+console.log(GetDate.hoursMinutesAmPm()); */
+
+
 const contactsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_ID: {
@@ -32,8 +37,8 @@ const contactsReducer = (state = initialState, action) => {
                     let messageObj = {
                         type: 'question',
                         text: action.messageText,
-                        time: '4:05 AM',
-                        date: '4/22/17'
+                        time: GetDate.hoursMinutesAmPm(),
+                        date: GetDate.monthDayYearSlice()
                     }
 
                     if (localStorage.getItem(action.contactId) == null) {
@@ -70,8 +75,8 @@ const contactsReducer = (state = initialState, action) => {
                     let messageObj = {
                         type: 'answer',
                         text: action.messageText,
-                        time: '4:05 AM',
-                        date: '4/22/17'
+                        time: GetDate.hoursMinutesAmPm(),
+                        date: GetDate.monthDayYearSlice()
                     }
                     if (localStorage.getItem(action.contactId) == null) {
                         let localStorageArr = [];

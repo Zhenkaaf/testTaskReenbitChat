@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 
 const Contacts = (props) => {
-    console.log(props.notification);
+    console.log(props);
 let notificationWondow = React.createRef();
 
     useEffect(() => {

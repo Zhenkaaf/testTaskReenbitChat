@@ -39,6 +39,9 @@
 
 /*-------------------------------------------*/
 .answerBody {
+   
+}
+.answerContainer {
     display: flex;
 }
 .questionBody {
@@ -63,6 +66,24 @@
 .messageTextQuestion {
     background-color: rgb(196, 194, 194);
     color: #444;
+}
+.dateBlockAnswer,
+.dateBlockQuestion {
+    display: flex;
+    font-size: 10px;
+    color: #444;
+    margin-top: -15px;
+}
+.dateBlockAnswer {
+margin-left: 90px;
+}
+.dateBlockQuestion {
+   display: flex;
+   justify-content: flex-end;
+   margin-right: 30px;
+}
+.dateBlockdate {
+    margin-right: 5px;
 }
 
 
@@ -89,7 +110,7 @@
     padding: 15px;
     box-sizing: border-box;
     border-radius: 18px;
-    background-color: ghostwhite;
+  
    
 }
 .typeYourMessageArrow {
@@ -100,7 +121,7 @@
    position: absolute;
    right: 17px;
    top: 21px;
-   background-color: ghostwhite;
+   background-color: #fff;
    border: none;
    border-left: 1px solid grey;
    color: rgb(59, 56, 56);

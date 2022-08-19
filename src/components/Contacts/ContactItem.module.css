@@ -16,10 +16,10 @@
     border-radius: 50%; 
 }
 .itemNameText {
-    flex: 1 1 auto;
     overflow: hidden;
     text-align: left;
     padding: 0px 15px;
+    flex: 1 1 auto;
 }
 .itemName {
     font-weight: 600;
@@ -29,5 +29,9 @@
     overflow: hidden;  
 }
 .itemDate {
-   
+    font-size: 12px;
+    min-width: 80px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
 }
