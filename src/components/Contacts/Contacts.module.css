@@ -6,7 +6,8 @@ h2 {
     flex: 0 0 65px;
 }
 .contactsBody {
-   
+    border-bottom: 1px solid grey;
+    padding-bottom: 128px;
 }
 .chatsInfo {
     display: flex;

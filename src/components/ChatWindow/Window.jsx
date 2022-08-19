@@ -3,7 +3,7 @@ import s from './Window.module.css';
 
 
 const Window = (props) => {
-    console.log(props);
+
 
 
     let activeItem = props.contactsData.filter(item => {
@@ -47,7 +47,7 @@ const Window = (props) => {
 
 
     let messages = /* activeItem[0].messages */dataForDisplay.map((item, index) => {
-        return <ActiveItemMessages key={index} text={item.text} type={item.type} ></ActiveItemMessages>;
+        return <ActiveItemMessage key={index} text={item.text} type={item.type} ava={activeItem[0].photoURL} ></ActiveItemMessage>;
     })
 
     let myRef = React.createRef();
@@ -77,11 +77,22 @@ const Window = (props) => {
     )
 }
 
-const ActiveItemMessages = (props) => {
+const ActiveItemMessage = (props) => {
     return (
-        <div className={props.type == 'question' ? s.messageBody : ''}>
-            <div className={props.type == 'answer' ? s.messageTextAnswer : s.messageTextQuestion}>{props.text}</div>
+        /*  <div className={s.activeItemMessageBody}>
+            <div><img className={s.itemAva} src={`${props.ava ? props.ava : 'https://secure.gravatar.com/avatar/177d59eb5e60f5183be02ab03a4911c7?s=250&d=mm&r=g'}`}></img></div>
+             <div className={props.type == 'question' ? s.messageBody : ''}>
+                 <div className={props.type == 'answer' ? s.messageTextAnswer : s.messageTextQuestion}>{props.text}</div>
+             </div>
+         </div> */
+
+        <div className={s.activeItemMessageBody}>
+            {props.type == 'question'
+                ? <div className={s.questionBody}><div className={s.messageTextQuestion}>{props.text}</div></div>
+
+                : <div className={s.answerBody}><div><img className={s.itemAva} src={`${props.ava ? props.ava : 'https://secure.gravatar.com/avatar/177d59eb5e60f5183be02ab03a4911c7?s=250&d=mm&r=g'}`}></img></div><div className={s.messageTextAnswer}>{props.text}</div></div>}
         </div>
+
     )
 }
 
@@ -105,9 +116,12 @@ const TypeMessage = (props) => {
 
     return (
         <div>
-            <div>
-                <input type="text" placeholder='Type your message' value={newMessage} onChange={textChange} />
-                <button className={s.sendArrow} disabled={stateBtn} onClick={() => { props.addNewMessage(newMessage, props.activeContactId); clearInputValue(); props.fn(props.activeContactId) }}>➤</button>
+            <div className={s.typeYourMessageBody}>
+                <div className={s.typeYourMessageBlock}>
+                    <input className={s.typeYourMessageField} type="text" placeholder='Type your message' value={newMessage} onChange={textChange} />
+                    <button className={s.typeYourMessageArrow} disabled={stateBtn} onClick={() => { props.addNewMessage(newMessage, props.activeContactId); clearInputValue(); props.fn(props.activeContactId) }}>➤</button>
+                </div>
+
             </div>
         </div>
     )

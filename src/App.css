@@ -3,17 +3,17 @@
 }
 .chatBody {
   display: flex;
-  min-height: 100vh;
+ /*  min-height: 100vh; */
 }
 .chats {
  
 }
 .contactsContainer {
   flex: 0 0 33.333%;
-  min-height: 100vh;
+ /*  min-height: 100vh; */
   border-right: 1px solid grey;
 }
 .windowContainer {
   flex: 1 1 auto;
-  min-height: 100vh;
+ /*  min-height: 100vh; */
 }
