@@ -45,7 +45,7 @@ let notificationWondow = React.createRef();
         <div>
             <div className={s.searchBody}>
                 
-                <div><img className={s.itemAva} src={`${props.photoURL ? props.photoURL : 'https://media-exp1.licdn.com/dms/image/D4E35AQG0OrD5JfOTKw/profile-framedphoto-shrink_400_400/0/1660498327653?e=1661432400&v=beta&t=BDatajJ1kgDlaW6MJPoyNTeSKO7I9njf6WH92fH4MTI'}`}></img></div>
+                <div className={s.itemAvaBlock}><img className={s.itemAva} src={`${props.photoURL ? props.photoURL : 'https://media-exp1.licdn.com/dms/image/D4E35AQG0OrD5JfOTKw/profile-framedphoto-shrink_400_400/0/1660498327653?e=1661432400&v=beta&t=BDatajJ1kgDlaW6MJPoyNTeSKO7I9njf6WH92fH4MTI'}`}></img><span className={s.avaOnline}>✓</span></div>
                
                 <div className={s.searchBlock}>
                     <input className={s.search} onChange={findContact} onBlur={()=>{setDesiredContact('')}} value={desiredContact} placeholder={'Search or start new chat'}></input>

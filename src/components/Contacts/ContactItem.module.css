@@ -10,10 +10,27 @@
 .itemBody:hover {
     background-color: gainsboro;
 }
+.itemAvaBlock {
+    position: relative;
+}
 .itemAva {
     width: 50px;
     height: 50px;
     border-radius: 50%; 
+}
+.avaOnline {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%; 
+    border: 2px solid green;
+    color: green;
+    position: absolute;
+    top: 35px;
+    left: 38px;
+    font-size: 10px;
+    font-weight: 600;
+    padding-left: 2px;
+    box-sizing: border-box;
 }
 .itemNameText {
     overflow: hidden;
@@ -22,7 +39,9 @@
     flex: 1 1 auto;
 }
 .itemName {
-    font-weight: 600;
+    font-weight: 500;
+    line-height: 1;
+    padding-bottom: 4px;
 }
 .itemText {
     font-size: 10px;

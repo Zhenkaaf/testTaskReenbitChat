@@ -4,8 +4,6 @@ import s from './Window.module.css';
 
 const Window = (props) => {
 
-
-
     let activeItem = props.contactsData.filter(item => {
         if (props.activeContactId == item.id) {
             return item;
@@ -21,29 +19,6 @@ const Window = (props) => {
         let localStorageArr = JSON.parse(returnedObj);
         dataForDisplay = localStorageArr;
     }
-
-    /* useEffect(() => {
-    if (localStorage.getItem(activeItemId) != null) {
-        alert('ty');
-        let returnedObj = localStorage.getItem(activeItemId);
-        let localStorageArr = JSON.parse(returnedObj);
-        for (let i = 0; i < localStorageArr.length; i++) {
-            activeItem[0].messages.push(localStorageArr[i]);
-            alert(localStorageArr[i]);
-        }
-    }
-}) */
-    /*  else {
-         let returnedObj = localStorage.getItem(activeItemId);
-         let localStorageArr = JSON.parse(returnedObj);
-         for (let i = 0; i < localStorageArr.length; i++) {
-             activeItem[0].messages.push(localStorageArr[i]);
-             alert(localStorageArr[i]);
-         }
-     } */
-
-
-
 
 
     let messages = /* activeItem[0].messages */dataForDisplay.map((item, index) => {
@@ -64,7 +39,7 @@ const Window = (props) => {
         <div>
             <div className={s.windowBody}>
                 <div className={s.windowContactInfo}>
-                    <div><img className={s.itemAva} src={`${activeItem[0].photoURL ? activeItem[0].photoURL : 'https://secure.gravatar.com/avatar/177d59eb5e60f5183be02ab03a4911c7?s=250&d=mm&r=g'}`}></img></div>
+                    <div className={s.itemAvaBlock}><img className={s.itemAva} src={`${activeItem[0].photoURL ? activeItem[0].photoURL : 'https://secure.gravatar.com/avatar/177d59eb5e60f5183be02ab03a4911c7?s=250&d=mm&r=g'}`}></img><span className={s.avaOnline}>✓</span></div>
                     <div className={s.windowContactName}>{activeItem[0].name}</div>
                 </div>
                 <div className={s.messagesBody}>
@@ -110,9 +85,7 @@ const ActiveItemMessage = (props) => {
                     </div>
 
                 </div>}
-
         </div>
-
     )
 }
 
@@ -120,9 +93,15 @@ const TypeMessage = (props) => {
     let [newMessage, setNewMessageText] = useState('');
 
     let stateBtn = true;
-    if (newMessage.length > 0) {
+    
+    if (newMessage.length > 0 && newMessage.match(/^\s+$/) === null) {
         stateBtn = false;
     }
+    /* if(newMessage.match(/^\s+$/) === null) {
+        alert("String is good");
+    } else {
+        alert("String contains only whitespace");
+    } */
 
     const textChange = (event) => {
         setNewMessageText(event.currentTarget.value);
@@ -133,7 +112,6 @@ const TypeMessage = (props) => {
     }
 
 
-
     return (
         <div>
             <div className={s.typeYourMessageBody}>
@@ -141,7 +119,6 @@ const TypeMessage = (props) => {
                     <input className={s.typeYourMessageField} type="text" placeholder='Type your message' value={newMessage} onChange={textChange} />
                     <button className={s.typeYourMessageArrow} disabled={stateBtn} onClick={() => { props.addNewMessage(newMessage, props.activeContactId); clearInputValue(); props.fn(props.activeContactId) }}>➤</button>
                 </div>
-
             </div>
         </div>
     )
