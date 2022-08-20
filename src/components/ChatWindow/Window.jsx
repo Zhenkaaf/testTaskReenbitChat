@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import s from './Window.module.css';
+import useKeypress from 'react-use-keypress';
 
 
 const Window = (props) => {
@@ -33,7 +34,7 @@ const Window = (props) => {
         scrollTo();
     }, [messages])
 
-
+ 
 
     return (
         <div>
@@ -47,7 +48,7 @@ const Window = (props) => {
                 </div>
 
             </div>
-            <TypeMessage fn={props.fn} addNewMessage={props.addNewMessage} activeContactId={props.activeContactId}></TypeMessage>
+            <TypeMessage getAnswer={props.getAnswer} addNewMessage={props.addNewMessage} activeContactId={props.activeContactId}></TypeMessage>
         </div>
     )
 }
@@ -93,15 +94,9 @@ const TypeMessage = (props) => {
     let [newMessage, setNewMessageText] = useState('');
 
     let stateBtn = true;
-    
     if (newMessage.length > 0 && newMessage.match(/^\s+$/) === null) {
         stateBtn = false;
     }
-    /* if(newMessage.match(/^\s+$/) === null) {
-        alert("String is good");
-    } else {
-        alert("String contains only whitespace");
-    } */
 
     const textChange = (event) => {
         setNewMessageText(event.currentTarget.value);
@@ -111,13 +106,23 @@ const TypeMessage = (props) => {
         setNewMessageText('');
     }
 
+    useKeypress(['Enter'], (event) => {
+        if (event.key === 'Enter') {
+            if (newMessage.length > 0 && newMessage.match(/^\s+$/) === null) {
+                props.addNewMessage(newMessage, props.activeContactId);
+                clearInputValue();
+                props.getAnswer(props.activeContactId);
+            }
+        } 
+      })
+
 
     return (
         <div>
             <div className={s.typeYourMessageBody}>
                 <div className={s.typeYourMessageBlock}>
                     <input className={s.typeYourMessageField} type="text" placeholder='Type your message' value={newMessage} onChange={textChange} />
-                    <button className={s.typeYourMessageArrow} disabled={stateBtn} onClick={() => { props.addNewMessage(newMessage, props.activeContactId); clearInputValue(); props.fn(props.activeContactId) }}>➤</button>
+                    <button className={s.typeYourMessageArrow} disabled={stateBtn} onClick={() => { props.addNewMessage(newMessage, props.activeContactId); clearInputValue(); props.getAnswer(props.activeContactId) }}>➤</button>
                 </div>
             </div>
         </div>

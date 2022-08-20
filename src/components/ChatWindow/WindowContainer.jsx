@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => {
         addNewMessage: (messageText, contactId) => {
             dispatch(addNewMessageActionCreator(messageText, contactId))
           },
-          fn: (contactId) => {
+          getAnswer: (contactId) => {
             dispatch(getAnswerThunkCreator(contactId))
           }
 
