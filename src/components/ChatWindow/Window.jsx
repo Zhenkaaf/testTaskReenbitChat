@@ -22,7 +22,7 @@ const Window = (props) => {
     }
 
 
-    let messages = /* activeItem[0].messages */dataForDisplay.map((item, index) => {
+    let messages = dataForDisplay.map((item, index) => {
         return <ActiveItemMessage key={index} text={item.text} type={item.type} ava={activeItem[0].photoURL} time={item.time} date={item.date}></ActiveItemMessage>;
     })
 
@@ -35,7 +35,6 @@ const Window = (props) => {
     }, [messages])
 
  
-
     return (
         <div>
             <div className={s.windowBody}>
@@ -46,7 +45,6 @@ const Window = (props) => {
                 <div className={s.messagesBody}>
                     <div>{messages}<div ref={myRef}></div></div>
                 </div>
-
             </div>
             <TypeMessage getAnswer={props.getAnswer} addNewMessage={props.addNewMessage} activeContactId={props.activeContactId}></TypeMessage>
         </div>
@@ -55,15 +53,9 @@ const Window = (props) => {
 
 const ActiveItemMessage = (props) => {
     return (
-        /*  <div className={s.activeItemMessageBody}>
-            <div><img className={s.itemAva} src={`${props.ava ? props.ava : 'https://secure.gravatar.com/avatar/177d59eb5e60f5183be02ab03a4911c7?s=250&d=mm&r=g'}`}></img></div>
-             <div className={props.type == 'question' ? s.messageBody : ''}>
-                 <div className={props.type == 'answer' ? s.messageTextAnswer : s.messageTextQuestion}>{props.text}</div>
-             </div>
-         </div> */
-
         <div className={s.activeItemMessageBody}>
             {props.type == 'question'
+
                 ? <div><div className={s.questionBody}>
                     <div className={s.messageTextQuestion}>{props.text}</div>
                 </div>
@@ -84,7 +76,6 @@ const ActiveItemMessage = (props) => {
                         <div className={s.dateBlockdate}>{props.date} ,</div>
                         <div>{props.time}</div>
                     </div>
-
                 </div>}
         </div>
     )

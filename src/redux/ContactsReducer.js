@@ -19,17 +19,16 @@ const initialState = {
     notificationName: null
 }
 
-/* console.log(GetDate.monthDayYearSlice());
-console.log(GetDate.hoursMinutesAmPm()); */
-
 
 const contactsReducer = (state = initialState, action) => {
     switch (action.type) {
+
         case SET_ID: {
             let stateCopy = cloneDeep(state);
             stateCopy.activeContactId = action.id;
             return stateCopy;
         }
+
         case ADD_MESSAGE: {
             let stateCopy = cloneDeep(state);
             stateCopy.contactsData.map((item, index) => {
@@ -40,7 +39,6 @@ const contactsReducer = (state = initialState, action) => {
                         time: GetDate.hoursMinutesAmPm(),
                         date: GetDate.monthDayYearSlice()
                     }
-
                     if (localStorage.getItem(action.contactId) == null) {
                         let localStorageArr = [];
                         localStorageArr = localStorageArr.concat(item.messages);
@@ -55,19 +53,12 @@ const contactsReducer = (state = initialState, action) => {
                         let convertedToJson = JSON.stringify(localStorageArr);
                         localStorage.setItem(action.contactId, convertedToJson);
                     }
-                    /*  let returnedObj = localStorage.getItem(action.contactId);
-                         let localStorageArr = JSON.parse(returnedObj); */
-
-                    /* for (let i = 0; i < localStorageArr.length; i++) {
-                        item.messages.push(localStorageArr[i]);
-                    } */
-                    /* item.messages.push(localStorageArr[localStorageArr.length - 1]); */
-
                     stateCopy.contactsData.splice(0, 0, stateCopy.contactsData.splice(index, 1)[0]);
                 }
             })
             return stateCopy;
         }
+
         case ADD_MESSAGE_FROM_SERVER: {
             let stateCopy = cloneDeep(state);
             stateCopy.contactsData.map((item, index) => {
@@ -92,21 +83,12 @@ const contactsReducer = (state = initialState, action) => {
                         let convertedToJson = JSON.stringify(localStorageArr);
                         localStorage.setItem(action.contactId, convertedToJson);
                     }
-                    /*  let returnedObj = localStorage.getItem(action.contactId);
-                         let localStorageArr = JSON.parse(returnedObj); */
-                    /* for (let i = 0; i < localStorageArr.length; i++) {
-                        item.messages.push(localStorageArr[i]);
-                    } */
-                    /*    item.messages.push(localStorageArr[localStorageArr.length - 1]); */
-
-                    /* item.messages.push(messageObj); */
                     stateCopy.contactsData.splice(0, 0, stateCopy.contactsData.splice(index, 1)[0]);
-                    /* stateCopy.notification = item.name; */
-                    /*   stateCopy.notification.text = 'You have new message from '; */
                 }
             })
             return stateCopy;
         }
+
         case NOTIFICATION: {
             let stateCopy = cloneDeep(state);
             if (stateCopy.notification == false) {
@@ -122,6 +104,7 @@ const contactsReducer = (state = initialState, action) => {
             })
             return stateCopy;
         }
+
         default:
             return state;
     }

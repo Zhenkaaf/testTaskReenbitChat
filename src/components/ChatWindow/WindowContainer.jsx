@@ -17,7 +17,6 @@ const mapDispatchToProps = (dispatch) => {
           getAnswer: (contactId) => {
             dispatch(getAnswerThunkCreator(contactId))
           }
-
     }
 }
 

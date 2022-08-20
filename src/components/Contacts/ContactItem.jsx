@@ -33,7 +33,7 @@ const ContactItem = (props) => {
                     <div className={s.itemName}>{props.name}</div>
                     <div className={s.itemText}>{props.messages.length ? props.messages[props.messages.length - 1].text : ''}</div>
                 </div>
-                <div className={s.itemDate}>{`${month} ${day}, ${year}`}{/* {props.messages.length ? props.messages[props.messages.length - 1].date : ''} */}</div>
+                <div className={s.itemDate}>{`${month} ${day}, ${year}`}</div>
             </div>
         </div>
     )

@@ -8,7 +8,6 @@ const mapStateToProps = (state) => {
     contactsData: state.contacts.contactsData,
     notification: state.contacts.notification,
     notificationName: state.contacts.notificationName,
-  
   }
 }
 const mapDispatchToProps = (dispatch) => {
