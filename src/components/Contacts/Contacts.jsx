@@ -42,7 +42,7 @@ let notificationWondow = React.createRef();
             <div className={s.contactsBody}>
                <div className={s.chatsInfo}>
                     <h2>Chats</h2>
-                    <div className={s.notificationWindow} ref={notificationWondow}>You have a new message from {props.notificationName}</div>
+                    <div className={s.notificationWindow} ref={notificationWondow}>{props.notificationName} sent you a message</div>
                     </div>
                 <div>{contacts}</div>
             </div>
