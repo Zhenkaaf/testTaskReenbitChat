@@ -15,12 +15,8 @@ function App() {
       <div className='App'>
         <div className='container'>
           <div className='chatBody'>
-          
-            
-
             <div className='contactsContainer'><ContactsContainer /></div>
             <div className='windowContainer'><WindowContainer /></div>
-
           </div>
         </div>
       </div>

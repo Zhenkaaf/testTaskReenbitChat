@@ -1,13 +1,16 @@
 .container {
   max-width: 100%;
+ 
 }
 .chatBody {
   display: flex;
+ 
 }
 .contactsContainer {
   flex: 0 0 33.333%;
   border-right: 1px solid grey;
   border-bottom: 1px solid grey;
+
 }
 .windowContainer {
   flex: 1 1 auto;

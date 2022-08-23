@@ -36,20 +36,23 @@ const Window = (props) => {
 
  
     return (
-        <div>
+        <div className={s.windowMessages}>
             <div className={s.windowBody}>
                 <div className={s.windowContactInfo}>
                     <div className={s.itemAvaBlock}><img className={s.itemAva} src={`${activeItem[0].photoURL ? activeItem[0].photoURL : 'https://secure.gravatar.com/avatar/177d59eb5e60f5183be02ab03a4911c7?s=250&d=mm&r=g'}`}></img><span className={s.avaOnline}>✓</span></div>
                     <div className={s.windowContactName}>{activeItem[0].name}</div>
                 </div>
+                
                 <div className={s.messagesBody}>
-                    <div>{messages}<div ref={myRef}></div></div>
+                    <div className={s.messages}>{messages}<div ref={myRef}></div></div>
                 </div>
+                <div className={s.footer}><TypeMessage getAnswer={props.getAnswer} addNewMessage={props.addNewMessage} activeContactId={props.activeContactId}></TypeMessage></div>
             </div>
-            <TypeMessage getAnswer={props.getAnswer} addNewMessage={props.addNewMessage} activeContactId={props.activeContactId}></TypeMessage>
         </div>
     )
 }
+
+
 
 const ActiveItemMessage = (props) => {
     return (
